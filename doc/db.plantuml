@@ -1,0 +1,50 @@
+@startuml;
+
+Account --> "1..*" Account
+Account --> "1" Person
+Transfer --> "2" Account
+Transfer --> "0..1" Transfer
+
+class Account {
+  +id : integer
+  +is_slave : boolean
+  ..
+  +master_id : integer
+  +owner_id : integer
+  +state : string
+  +name : string
+  +amount : decimal
+  ..
+  +created_at : timestamp
+  +updated_at : timestamp
+}
+
+class Person {
+  +id : integer
+  +is_juridica : boolean
+  ..
+  +cpf_cnpj : string
+  +name : string
+  +fantasy_name : string
+  +born_at : timestamp
+  ..
+  +created_at : timestamp
+  +updated_at : timestamp
+}
+
+class Transfer {
+  +id : integer
+  +is_slave : boolean
+  +is_reversal : boolean
+  ..
+  +inverse_id : integer
+  +code : string
+  +from_id : integer
+  +to_id : integer
+  +amount : decimal
+  ..
+  +created_at : timestamp
+  +updated_at : timestamp
+}
+
+@enduml;
