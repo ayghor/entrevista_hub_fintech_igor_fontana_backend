@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+zero:
+  is_child: false
+  owner: zero
+  root: zero
+  name: Account Zero
+  amount: -6.66
+
+one:
+  is_child: false
+  owner: one
+  root: one
+  name: Account One
+  amount: 6.66
+
+two:
+  is_child: true
+  root: one
+  parent: one
+  owner: two
+  name: Account Two

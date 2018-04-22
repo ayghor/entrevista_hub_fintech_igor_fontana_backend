@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+zero:
+  is_juridica: false
+  cpf_cnpj: "00000000000"
+  name: Pessoa Zero
+  born_at: 2018-04-21
+
+one:
+  is_juridica: false
+  cpf_cnpj: "11111111111"
+  name: Pessoa One
+  born_at: 2018-04-21
+
+two:
+  is_juridica: true
+  cpf_cnpj: "22222222222222"
+  name: Pessoa Two
+  fantasy_name: Fantasia Two

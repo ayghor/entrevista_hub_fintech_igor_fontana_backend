@@ -7,11 +7,13 @@ Transfer --> "0..1" Transfer
 
 class Account {
   +id : integer
-  +is_slave : boolean
+  +is_child : boolean
+  +is_blocked : boolean
+  +is_canceled : boolean
   ..
-  +master_id : integer
+  +root_id : integer
+  +parent_id : integer
   +owner_id : integer
-  +state : string
   +name : string
   +amount : decimal
   ..
@@ -34,10 +36,10 @@ class Person {
 
 class Transfer {
   +id : integer
-  +is_slave : boolean
+  +is_child : boolean
   +is_reversal : boolean
   ..
-  +inverse_id : integer
+  +reverse_id : integer
   +code : string
   +from_id : integer
   +to_id : integer
