@@ -12,23 +12,23 @@ class TransferTest < ActiveSupport::TestCase
   # válida
   #
   test "valid root transfer" do
-    refute @root.is_child
+    refute @root.is_aporte
     assert @root.valid?
   end
 
   test "valid child transfer" do
-    assert @child.is_child
+    assert @child.is_aporte
     assert @child.valid?
   end
 
   test "valid child reversal" do
-    assert @rchild.is_child
+    assert @rchild.is_aporte
     assert @rchild.is_reversal
     assert @rchild.valid?
   end
 
   test "valid root reversal" do
-    refute @rroot.is_child
+    refute @rroot.is_aporte
     assert @rroot.is_reversal
     assert @rroot.valid?
   end
@@ -69,7 +69,7 @@ class TransferTest < ActiveSupport::TestCase
     assert @child.errors.added?(:to, :canceled)
   end
 
-  test "invalid if !is_reversal and is_child != to.is_child" do
+  test "invalid if !is_reversal and is_aporte != to.is_child" do
     @child.to.is_child = !@child.to.is_child
     refute @child.valid?
     assert @child.errors.added?(:to, :bad_is_child)

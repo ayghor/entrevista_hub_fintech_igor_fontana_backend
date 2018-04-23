@@ -18,7 +18,7 @@ class TransfersControllerTest < ActionDispatch::IntegrationTest
           code: "zzzzzzzzzzzzzzzzzzzzzz",
           from_id: @transfer.from_id,
           to_id: @transfer.to_id,
-          is_child: @transfer.is_child,
+          is_aporte: @transfer.is_aporte,
           is_reversal: @transfer.is_reversal
         }
       }
@@ -40,7 +40,7 @@ class TransfersControllerTest < ActionDispatch::IntegrationTest
         from_id: @transfer.from_id,
         reverse_id: @transfer.reverse_id,
         to_id: @transfer.to_id,
-        is_child: @transfer.is_child,
+        is_aporte: @transfer.is_aporte,
         is_reversal: @transfer.is_reversal
       }
     }

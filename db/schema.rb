@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_22_020336) do
+ActiveRecord::Schema.define(version: 2018_04_23_121405) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.boolean "is_child", null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2018_04_22_020336) do
   end
 
   create_table "transfers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.boolean "is_child", null: false
+    t.boolean "is_aporte", null: false
     t.boolean "is_reversal", null: false
     t.bigint "reverse_id"
     t.string "code"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_04_22_020336) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["from_id"], name: "index_transfers_on_from_id"
-    t.index ["is_child"], name: "index_transfers_on_is_child"
+    t.index ["is_aporte"], name: "index_transfers_on_is_aporte"
     t.index ["is_reversal", "code"], name: "index_transfers_on_is_reversal_and_code", unique: true
     t.index ["is_reversal"], name: "index_transfers_on_is_reversal"
     t.index ["reverse_id"], name: "index_transfers_on_reverse_id"

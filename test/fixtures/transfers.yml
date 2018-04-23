@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  is_child: false
+  is_aporte: false
   is_reversal: false
   reverse: four
   code: aaaaaaaaaaaaaaaaaaaaaa
@@ -10,7 +10,7 @@ one:
   amount: 9.99
 
 two:
-  is_child: true
+  is_aporte: true
   is_reversal: false
   reverse: three
   from: one
@@ -18,7 +18,7 @@ two:
   amount: 9.99
 
 three:
-  is_child: true
+  is_aporte: true
   is_reversal: true
   reverse: two
   from: two
@@ -26,7 +26,7 @@ three:
   amount: 9.99
 
 four:
-  is_child: false
+  is_aporte: false
   is_reversal: true
   reverse: one
   code: aaaaaaaaaaaaaaaaaaaaaa
@@ -35,21 +35,21 @@ four:
   amount: 9.99
 
 five:
-  is_child: true
+  is_aporte: true
   is_reversal: false
   from: one
   to: two
   amount: 6.66
 
 six:
-  is_child: false
+  is_aporte: false
   is_reversal: false
   from: two
   to: one
   amount: 6.66
 
 seven:
-  is_child: false
+  is_aporte: false
   is_reversal: false
   code: bbbbbbbbbbbbbbbbbbbbbb
   from: one

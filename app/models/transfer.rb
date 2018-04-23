@@ -6,8 +6,8 @@ class Transfer < ApplicationRecord
   #
   #
   #
-  scope :is_child, -> { where(is_child: true) }
-  scope :is_root, -> { where.not(is_child: true) }
+  scope :is_aporte, -> { where(is_aporte: true) }
+  scope :not_aporte, -> { where.not(is_aporte: true) }
   scope :is_reversal, -> { where(is_reversal: true) }
 
   #
@@ -37,7 +37,7 @@ class Transfer < ApplicationRecord
       r.errors.add(:from, :not_reverse_to, message: "Bad reversal")
     end
     if r.to
-      if r.is_reversal && r.is_child != r.from.is_child
+      if r.is_reversal && r.is_aporte != r.from.is_child
         r.errors.add(:from, :bad_is_child, message: "Bad is_child")
       end
     end
@@ -51,7 +51,7 @@ class Transfer < ApplicationRecord
       r.errors.add(:to, :not_reverse_from, message: "Bad reversal")
     end
     if r.to
-      if !r.is_reversal && r.is_child != r.to.is_child
+      if !r.is_reversal && r.is_aporte != r.to.is_child
         r.errors.add(:to, :bad_is_child, message: "Bad is_child")
       end
       r.errors.add(:to, :blocked, message: "Blocked") if r.to.is_blocked
@@ -82,14 +82,14 @@ class Transfer < ApplicationRecord
   # código, caso seja um aporte
   #
   validates :code,
-    unless: :is_child,
+    unless: :is_aporte,
     presence: true,
     length: {is: 22},
     format: /\A[A-Za-z0-9]*\z/,
     uniqueness: {scope: :is_reversal, allow_nil: true}
 
   validates :code,
-    if: :is_child,
+    if: :is_aporte,
     absence: true
 
   # igual ao da inversa, caso seja um estorno
