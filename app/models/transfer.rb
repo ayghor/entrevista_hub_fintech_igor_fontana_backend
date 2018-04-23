@@ -100,6 +100,9 @@ class Transfer < ApplicationRecord
   before_validation :guess_attributes,
     if: :new_record?
 
+  after_create :update_reverse_reverse,
+    if: :is_reversal
+
   private
 
   def guess_attributes
@@ -114,5 +117,9 @@ class Transfer < ApplicationRecord
 
   def set_random_code
     self.code = SecureRandom.alphanumeric(22)
+  end
+
+  def update_reverse_reverse
+    reverse.update(reverse: self)
   end
 end

@@ -84,6 +84,16 @@ class TransferTest < ActiveSupport::TestCase
     assert @rroot.errors.added?(:amount, :not_reverse_amount)
   end
 
+  test "new reversal sets reverse on reverse" do
+    x = Transfer.create!(
+      reverse: transfers(:seven),
+      code: transfers(:seven).code
+    )
+    x.reload
+    x.reverse.reload
+    assert x.reverse.reverse == x
+  end
+
   #
   # código
   #
