@@ -5,6 +5,10 @@ class TransfersController < ApplicationController
   def index
     @transfers = Transfer.all
 
+    if params.has_key?(:account_id)
+      @transfers = @transfers.involving_account(params[:account_id])
+    end
+
     render json: @transfers
   end
 

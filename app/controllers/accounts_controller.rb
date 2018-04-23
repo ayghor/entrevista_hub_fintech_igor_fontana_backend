@@ -13,6 +13,10 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.all
 
+    if params.has_key?(:person_id)
+      @accounts = @accounts.where(owner_id: params[:person_id])
+    end
+
     render json: @accounts
   end
 

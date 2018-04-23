@@ -10,6 +10,11 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index for person" do
+    get person_accounts_url(@account.owner), as: :json
+    assert_response :success
+  end
+
   test "should create account" do
     assert_difference('Account.count') do
       post accounts_url, as: :json, params: {

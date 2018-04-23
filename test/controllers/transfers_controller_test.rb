@@ -10,6 +10,11 @@ class TransfersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index for account" do
+    get account_transfers_url(@transfer.from), as: :json
+    assert_response :success
+  end
+
   test "should create transfer" do
     assert_difference('Transfer.count') do
       post transfers_url, as: :json, params: {

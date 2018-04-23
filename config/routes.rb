@@ -11,9 +11,12 @@ Rails.application.routes.draw do
           post :cancel
           post :uncancel
         end
+        resources :transfers, only: :index
       end
 
-      resources :people
+      resources :people do
+        resources :accounts, only: :index
+      end
 
     end
   end

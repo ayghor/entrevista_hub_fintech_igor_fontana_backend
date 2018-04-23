@@ -9,6 +9,7 @@ class Transfer < ApplicationRecord
   scope :is_aporte, -> { where(is_aporte: true) }
   scope :not_aporte, -> { where.not(is_aporte: true) }
   scope :is_reversal, -> { where(is_reversal: true) }
+  scope :involving_account, -> (x) { where(from_id: x).or(where(to_id: x)) }
 
   #
   #
