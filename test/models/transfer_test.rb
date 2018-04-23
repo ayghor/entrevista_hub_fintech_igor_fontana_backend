@@ -75,7 +75,7 @@ class TransferTest < ActiveSupport::TestCase
     assert @child.errors.added?(:to, :bad_is_child)
   end
 
-  test "invalid if is_reversal, is_child != from.is_child" do
+  test "invalid if is_reversal and is_aporte != from.is_child" do
     @rchild.from.is_child = !@rchild.from.is_child
     refute @rchild.valid?
     assert @rchild.errors.added?(:from, :bad_is_child)
