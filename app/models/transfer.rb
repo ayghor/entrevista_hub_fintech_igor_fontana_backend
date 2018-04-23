@@ -36,8 +36,8 @@ class Transfer < ApplicationRecord
     if r.is_reversal && r.reverse && r.from != r.reverse.to
       r.errors.add(:from, :not_reverse_to, message: "Bad reversal")
     end
-    if r.to
-      if r.is_reversal && r.is_aporte != r.from.is_child
+    if r.from
+      if r.is_reversal && r.is_aporte == r.from.is_child
         r.errors.add(:from, :bad_is_child, message: "Bad is_child for is_aporte")
       end
     end
@@ -51,7 +51,7 @@ class Transfer < ApplicationRecord
       r.errors.add(:to, :not_reverse_from, message: "Bad reversal")
     end
     if r.to
-      if !r.is_reversal && r.is_aporte != r.to.is_child
+      if !r.is_reversal && r.is_aporte == r.to.is_child
         r.errors.add(:to, :bad_is_child, message: "Bad is_child for is_aporte")
       end
       r.errors.add(:to, :blocked, message: "Blocked") if r.to.is_blocked
@@ -82,14 +82,14 @@ class Transfer < ApplicationRecord
   # código, caso seja um aporte
   #
   validates :code,
-    unless: :is_aporte,
+    if: :is_aporte,
     presence: true,
     length: {is: 22},
     format: /\A[A-Za-z0-9]*\z/,
     uniqueness: {scope: :is_reversal, allow_nil: true}
 
   validates :code,
-    if: :is_aporte,
+    unless: :is_aporte,
     absence: true
 
   # igual ao da inversa, caso seja um estorno
@@ -126,7 +126,13 @@ class Transfer < ApplicationRecord
         self.to = reverse.from if to.nil?
       end
     end
-    self.is_aporte = is_reversal ? reverse&.is_aporte : to&.is_child if is_aporte.nil?
+
+    self.is_aporte =
+      if is_reversal?
+        reverse&.is_aporte
+      else
+        to&.is_child.nil? ? nil : !to.is_child
+      end
   end
 
   def set_random_code
