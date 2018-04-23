@@ -45,6 +45,10 @@ class Transfer < ApplicationRecord
     if r.is_reversal && r.reverse && r.to != r.reverse.from
       r.errors.add(:to, :not_reverse_from, message: "Bad reversal")
     end
+    if r.to
+      r.errors.add(:to, :blocked, message: "Blocked") if r.to.is_blocked
+      r.errors.add(:to, :canceled, message: "Canceled") if r.to.is_canceled
+    end
   end
 
   #

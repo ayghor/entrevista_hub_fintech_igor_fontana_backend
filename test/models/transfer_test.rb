@@ -57,6 +57,18 @@ class TransferTest < ActiveSupport::TestCase
     assert @root.errors.added?(:to, :blank)
   end
 
+  test "invalid if to blocked" do
+    @child.to = accounts(:blocked)
+    refute @child.valid?
+    assert @child.errors.added?(:to, :blocked)
+  end
+
+  test "invalid if to canceled" do
+    @child.to = accounts(:canceled)
+    refute @child.valid?
+    assert @child.errors.added?(:to, :canceled)
+  end
+
   test "accounts amounts are updated" do
     from = accounts(:one)
     to = accounts(:two)

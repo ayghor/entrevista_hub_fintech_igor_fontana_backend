@@ -20,3 +20,19 @@ two:
   parent: one
   owner: two
   name: Account Two
+
+blocked:
+  is_child: true
+  is_blocked: true
+  root: one
+  parent: two
+  owner: two
+  name: Blocked Account
+
+canceled:
+  is_child: true
+  is_canceled: true
+  root: one
+  parent: blocked
+  owner: one
+  name: Canceled Account
