@@ -21,6 +21,13 @@ two:
   owner: two
   name: Account Two
 
+three:
+  is_child: true
+  root: one
+  parent: two
+  owner: one
+  name: Account Three
+
 blocked:
   is_child: true
   is_blocked: true

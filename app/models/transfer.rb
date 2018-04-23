@@ -36,6 +36,11 @@ class Transfer < ApplicationRecord
     if r.is_reversal && r.reverse && r.from != r.reverse.to
       r.errors.add(:from, :not_reverse_to, message: "Bad reversal")
     end
+    if r.to
+      if r.is_reversal && r.is_child != r.from.is_child
+        r.errors.add(:from, :bad_is_child, message: "Bad is_child")
+      end
+    end
   end
 
   #
@@ -46,6 +51,9 @@ class Transfer < ApplicationRecord
       r.errors.add(:to, :not_reverse_from, message: "Bad reversal")
     end
     if r.to
+      if !r.is_reversal && r.is_child != r.to.is_child
+        r.errors.add(:to, :bad_is_child, message: "Bad is_child")
+      end
       r.errors.add(:to, :blocked, message: "Blocked") if r.to.is_blocked
       r.errors.add(:to, :canceled, message: "Canceled") if r.to.is_canceled
     end
@@ -98,9 +106,6 @@ class Transfer < ApplicationRecord
   #
   #
   #
-  after_initialize :set_random_code,
-    if: -> {new_record? && code.nil?}
-
   before_validation :guess_attributes,
     if: :new_record?
 
@@ -113,12 +118,15 @@ class Transfer < ApplicationRecord
 
   def guess_attributes
     self.is_reversal = !!reverse if is_reversal.nil?
-    if is_reversal && reverse
-      self.amount = reverse.amount if amount.nil?
-      self.from = reverse.to if from.nil?
-      self.to = reverse.from if to.nil?
+    if is_reversal
+      set_random_code if code.nil?
+      if reverse
+        self.amount = reverse.amount if amount.nil?
+        self.from = reverse.to if from.nil?
+        self.to = reverse.from if to.nil?
+      end
     end
-    self.is_child = from.is_child if is_child.nil? && from
+    self.is_child = to.is_child if is_child.nil? && to
   end
 
   def set_random_code
@@ -126,7 +134,7 @@ class Transfer < ApplicationRecord
   end
 
   def update_reverse_reverse
-    reverse.update(reverse: self)
+    reverse.update!(reverse: self)
   end
 
   def update_accounts_amounts

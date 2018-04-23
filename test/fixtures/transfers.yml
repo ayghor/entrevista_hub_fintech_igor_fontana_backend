@@ -42,7 +42,7 @@ five:
   amount: 6.66
 
 six:
-  is_child: true
+  is_child: false
   is_reversal: false
   from: two
   to: one

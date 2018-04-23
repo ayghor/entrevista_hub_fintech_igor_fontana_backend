@@ -69,6 +69,18 @@ class TransferTest < ActiveSupport::TestCase
     assert @child.errors.added?(:to, :canceled)
   end
 
+  test "invalid if !is_reversal and is_child != to.is_child" do
+    @child.to.is_child = !@child.to.is_child
+    refute @child.valid?
+    assert @child.errors.added?(:to, :bad_is_child)
+  end
+
+  test "invalid if is_reversal, is_child != from.is_child" do
+    @rchild.from.is_child = !@rchild.from.is_child
+    refute @rchild.valid?
+    assert @rchild.errors.added?(:from, :bad_is_child)
+  end
+
   test "accounts amounts are updated" do
     from = accounts(:one)
     to = accounts(:two)
