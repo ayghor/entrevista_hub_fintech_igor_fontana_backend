@@ -9,6 +9,8 @@ class TransfersController < ApplicationController
       @transfers = @transfers.involving_account(params[:account_id])
     end
 
+    @transfers.order!(created_at: :desc)
+
     render json: @transfers
   end
 

@@ -4,6 +4,7 @@ class PeopleController < ApplicationController
   # GET /people
   def index
     @people = Person.all
+    @people.order!(created_at: :desc)
 
     render json: @people
   end

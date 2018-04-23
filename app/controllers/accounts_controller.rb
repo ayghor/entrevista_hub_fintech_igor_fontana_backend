@@ -17,6 +17,8 @@ class AccountsController < ApplicationController
       @accounts = @accounts.where(owner_id: params[:person_id])
     end
 
+    @accounts.order!(created_at: :desc)
+
     render json: @accounts
   end
 
