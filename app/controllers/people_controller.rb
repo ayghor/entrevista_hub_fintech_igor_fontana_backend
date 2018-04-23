@@ -6,7 +6,7 @@ class PeopleController < ApplicationController
     @people = Person.all
     @people.order!(created_at: :desc)
 
-    render json: @people
+    paginate json: @people
   end
 
   # GET /people/1

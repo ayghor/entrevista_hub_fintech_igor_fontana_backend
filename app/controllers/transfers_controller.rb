@@ -11,7 +11,7 @@ class TransfersController < ApplicationController
 
     @transfers.order!(created_at: :desc)
 
-    render json: @transfers
+    paginate json: @transfers
   end
 
   # GET /transfers/1

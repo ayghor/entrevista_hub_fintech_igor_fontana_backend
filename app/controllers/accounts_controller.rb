@@ -19,7 +19,7 @@ class AccountsController < ApplicationController
 
     @accounts.order!(created_at: :desc)
 
-    render json: @accounts
+    paginate json: @accounts
   end
 
   # GET /accounts/1
