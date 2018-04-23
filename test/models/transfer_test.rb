@@ -42,6 +42,12 @@ class TransferTest < ActiveSupport::TestCase
     assert @root.errors.added?(:amount, :blank)
   end
 
+  test "invalid if amount <= 0" do
+    @root.amount = 0
+    refute @root.valid?
+    assert @root.errors.added?(:amount, :greater_than)
+  end
+
   #
   # origem e destino
   #

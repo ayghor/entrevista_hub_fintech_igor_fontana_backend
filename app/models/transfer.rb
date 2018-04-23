@@ -69,7 +69,8 @@ class Transfer < ApplicationRecord
   # montante
   #
   validates :amount,
-    presence: true
+    presence: true,
+    numericality: {greater_than: 0}
 
   validates_each :amount do |r, a, v|
     if r.is_reversal && r.reverse && r.amount != r.reverse.amount
