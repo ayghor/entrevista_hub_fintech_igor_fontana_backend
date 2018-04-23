@@ -31,19 +31,4 @@ class TransfersControllerTest < ActionDispatch::IntegrationTest
     get transfer_url(@transfer), as: :json
     assert_response :success
   end
-
-  test "should update transfer" do
-    patch transfer_url(@transfer), as: :json, params: {
-      transfer: {
-        amount: @transfer.amount,
-        code: @transfer.code,
-        from_id: @transfer.from_id,
-        reverse_id: @transfer.reverse_id,
-        to_id: @transfer.to_id,
-        is_aporte: @transfer.is_aporte,
-        is_reversal: @transfer.is_reversal
-      }
-    }
-    assert_response 200
-  end
 end

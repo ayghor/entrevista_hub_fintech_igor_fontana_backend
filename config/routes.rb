@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   scope path: 'api/v1' do
     scope except: :destroy do
 
-      resources :transfers
+      resources :transfers, except: %i(update destroy)
 
       resources :accounts do
         member do
