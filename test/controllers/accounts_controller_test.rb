@@ -14,9 +14,9 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Account.count') do
       post accounts_url, as: :json, params: {
         account: {
-          amount: 666,
-          name: "Unused name",
           owner_id: @account.owner_id,
+          name: "Unused name",
+          amount: 666,
         }
       }
     end
@@ -32,16 +32,40 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   test "should update account" do
     patch account_url(@account), as: :json, params: {
       account: {
-        amount: @account.amount,
-        root_id: @account.root_id,
         parent_id: @account.parent_id,
-        name: @account.name,
+        root_id: @account.root_id,
         owner_id: @account.owner_id,
-        is_blocked: @account.is_blocked,
-        is_canceled: @account.is_canceled,
-        is_child: @account.is_child
+        name: @account.name,
       }
     }
     assert_response 200
+  end
+
+  test "should block and unblock account" do
+    refute @account.is_blocked
+    post block_account_url(@account), as: :json
+    assert_response 204
+    @account.reload
+
+    assert @account.is_blocked
+    post unblock_account_url(@account), as: :json
+    assert_response 204
+    @account.reload
+
+    refute @account.is_blocked
+  end
+
+  test "should cancel and uncancel account" do
+    refute @account.is_canceled
+    post cancel_account_url(@account), as: :json
+    assert_response 204
+    @account.reload
+
+    assert @account.is_canceled
+    post uncancel_account_url(@account), as: :json
+    assert_response 204
+    @account.reload
+
+    refute @account.is_canceled
   end
 end

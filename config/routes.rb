@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           post :block
           post :unblock
           post :cancel
+          post :uncancel
         end
       end
 

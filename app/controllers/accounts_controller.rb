@@ -1,5 +1,13 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:show, :update, :destroy]
+  before_action :set_account, only: %i(
+    show
+    update
+    destroy
+    block
+    unblock
+    cancel
+    uncancel
+  )
 
   # GET /accounts
   def index
@@ -33,6 +41,26 @@ class AccountsController < ApplicationController
     end
   end
 
+  # POST /accounts/1/block
+  def block
+    @account.update!(is_blocked: true)
+  end
+
+  # POST /accounts/1/unblock
+  def unblock
+    @account.update!(is_blocked: false)
+  end
+
+  # POST /accounts/1/cancel
+  def cancel
+    @account.update!(is_canceled: true)
+  end
+
+  # POST /accounts/1/uncancel
+  def uncancel
+    @account.update!(is_canceled: false)
+  end
+
   # DELETE /accounts/1
   def destroy
     @account.destroy
@@ -48,12 +76,10 @@ class AccountsController < ApplicationController
     def account_params
       params.require(:account).permit(
         :is_child,
-        :is_blocked,
-        :is_canceled,
         :root_id,
+        :parent_id,
         :owner_id,
-        :name,
-        :amount
+        :name
       )
     end
 end
