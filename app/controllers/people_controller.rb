@@ -33,11 +33,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  # DELETE /people/1
-  def destroy
-    @person.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person

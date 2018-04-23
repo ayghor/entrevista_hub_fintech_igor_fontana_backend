@@ -61,11 +61,6 @@ class AccountsController < ApplicationController
     @account.update!(is_canceled: false)
   end
 
-  # DELETE /accounts/1
-  def destroy
-    @account.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
