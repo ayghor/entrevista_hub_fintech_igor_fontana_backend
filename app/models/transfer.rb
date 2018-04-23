@@ -126,7 +126,7 @@ class Transfer < ApplicationRecord
         self.to = reverse.from if to.nil?
       end
     end
-    self.is_child = to.is_child if is_child.nil? && to
+    self.is_aporte = is_reversal ? reverse&.is_aporte : to&.is_child if is_aporte.nil?
   end
 
   def set_random_code
