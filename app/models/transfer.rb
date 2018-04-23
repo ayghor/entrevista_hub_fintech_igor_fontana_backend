@@ -51,6 +51,8 @@ class Transfer < ApplicationRecord
       r.errors.add(:to, :not_reverse_from, message: "Bad reversal")
     end
     if r.to
+      r.errors.add(:to, :cant_be_from) if r.to == r.from
+
       if !r.is_reversal && r.is_aporte == r.to.is_child
         r.errors.add(:to, :bad_is_child, message: "Bad is_child for is_aporte")
       end

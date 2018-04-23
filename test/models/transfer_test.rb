@@ -57,6 +57,12 @@ class TransferTest < ActiveSupport::TestCase
     assert @root.errors.added?(:to, :blank)
   end
 
+  test "invalid if to == from" do
+    @root.to = @root.from
+    refute @root.valid?
+    assert @root.errors.added?(:to, :cant_be_from)
+  end
+
   test "invalid if to blocked" do
     @child.to = accounts(:blocked)
     refute @child.valid?
