@@ -101,7 +101,7 @@ class TransferTest < ActiveSupport::TestCase
     )
     x.reload
     x.reverse.reload
-    assert x.reverse.reverse == x
+    assert_equal x.reverse.reverse, x
   end
 
   #
