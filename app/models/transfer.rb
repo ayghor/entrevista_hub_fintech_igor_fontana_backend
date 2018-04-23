@@ -56,6 +56,10 @@ class Transfer < ApplicationRecord
       end
       r.errors.add(:to, :blocked, message: "Blocked") if r.to.is_blocked
       r.errors.add(:to, :canceled, message: "Canceled") if r.to.is_canceled
+
+      if !r.is_aporte && r.from && r.to.root != r.from.root
+        r.errors.add(:to, :bad_root, message: "Must be in same subtree as from")
+      end
     end
   end
 

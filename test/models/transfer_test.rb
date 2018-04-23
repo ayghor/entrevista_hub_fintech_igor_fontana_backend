@@ -81,6 +81,13 @@ class TransferTest < ActiveSupport::TestCase
     assert @rchild.errors.added?(:from, :bad_is_child)
   end
 
+  test "invalid if !is_aporte and to.root != from.root" do
+    @child.from.root = accounts(:one)
+    @child.to.root = accounts(:two)
+    refute @child.valid?
+    assert @child.errors.added?(:to, :bad_root)
+  end
+
   test "accounts amounts are updated" do
     from = accounts(:one)
     to = accounts(:two)
