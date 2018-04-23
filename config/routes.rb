@@ -2,11 +2,7 @@ Rails.application.routes.draw do
   scope path: 'api/v1' do
     scope except: :destroy do
 
-      resources :transfers do
-        member do
-          post :reverse
-        end
-      end
+      resources :transfers
 
       resources :accounts do
         member do
