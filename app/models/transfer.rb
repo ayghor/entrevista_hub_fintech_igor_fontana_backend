@@ -38,7 +38,7 @@ class Transfer < ApplicationRecord
     end
     if r.to
       if r.is_reversal && r.is_aporte != r.from.is_child
-        r.errors.add(:from, :bad_is_child, message: "Bad is_child")
+        r.errors.add(:from, :bad_is_child, message: "Bad is_child for is_aporte")
       end
     end
   end
@@ -52,7 +52,7 @@ class Transfer < ApplicationRecord
     end
     if r.to
       if !r.is_reversal && r.is_aporte != r.to.is_child
-        r.errors.add(:to, :bad_is_child, message: "Bad is_child")
+        r.errors.add(:to, :bad_is_child, message: "Bad is_child for is_aporte")
       end
       r.errors.add(:to, :blocked, message: "Blocked") if r.to.is_blocked
       r.errors.add(:to, :canceled, message: "Canceled") if r.to.is_canceled
