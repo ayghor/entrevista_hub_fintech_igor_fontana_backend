@@ -103,6 +103,8 @@ class Transfer < ApplicationRecord
   after_create :update_reverse_reverse,
     if: :is_reversal
 
+  after_create :update_accounts_amounts
+
   private
 
   def guess_attributes
@@ -121,5 +123,12 @@ class Transfer < ApplicationRecord
 
   def update_reverse_reverse
     reverse.update(reverse: self)
+  end
+
+  def update_accounts_amounts
+    from.amount -= amount
+    to.amount += amount
+    from.save!
+    to.save!
   end
 end

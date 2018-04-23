@@ -57,6 +57,16 @@ class TransferTest < ActiveSupport::TestCase
     assert @root.errors.added?(:to, :blank)
   end
 
+  test "accounts amounts are updated" do
+    from = accounts(:one)
+    to = accounts(:two)
+    assert_difference 'from.amount', -6.66 do
+      assert_difference 'to.amount', 6.66 do
+        Transfer.create!(from: from, to: to, amount: 6.66)
+      end
+    end
+  end
+
   #
   # estorno
   #
